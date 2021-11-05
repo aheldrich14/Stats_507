@@ -168,7 +168,7 @@ def clean_demo_data(df):
                     "RIDSTATR":"exam_status", "SDMVPSU":"variance_psu",
                     "SDMVSTRA":"variance_stratum",
                     "WTMEC2YR":"mec_exam_weight",
-                    "WTINT2YR":"interview_weight",}
+                    "WTINT2YR":"interview_weight", "RIAGENDR":"gender"}
 
     df = (df[list(demo_cols.keys()) + ['cohort_year']]
             .rename(columns=demo_cols)
@@ -208,6 +208,11 @@ def clean_demo_data(df):
                                 df['marital_status'],
                                 [-1, 1, 2, 3, 4, 5, 6, 77, 99],
                                 marry_cat_names)
+
+    df["gender"] = update_category_col(
+                                df['gender'],
+                                [-1, 1, 2],
+                                ["Missing", "Male", "Female"])
 
     return df
 
